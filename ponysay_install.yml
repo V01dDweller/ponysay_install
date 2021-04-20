@@ -38,7 +38,7 @@
  
   - name: Check out ponysay from Github
     git:
-      repo: 'https://github.com/jimeh/git-aware-prompt.git'
+      repo: https://github.com/erkin/ponysay.git
       dest: '/tmp/ponysay'
     when: ponysay.stat.exists == false
 
