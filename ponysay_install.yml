@@ -38,6 +38,7 @@
         path: '/bin/ponysay'
       register: ponysay
 
+    - name: Advising if ponysay was found
       ansible.builtin.debug:
         var: ponysay.stat.exists
  
