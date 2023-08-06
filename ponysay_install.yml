@@ -24,10 +24,6 @@
           - 'texinfo'
         state: present
       when: ansible_distribution == 'Fedora'
-      with_items:
-      - 'automake'
-      - 'git'
-      - 'texinfo'
 
     - name: Installing Ubuntu dependencies
       ansible.builtin.apt:
