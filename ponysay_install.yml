@@ -39,7 +39,6 @@
     - name: Advising if ponysay was found
       ansible.builtin.debug:
         var: ponysay.stat.exists
- 
 
     - name: Cloning ponysay repo and run install script
       when: not ponysay.stat.exists
