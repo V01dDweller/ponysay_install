@@ -7,15 +7,14 @@
   tasks:
     - name: Installing CentOS dependencies
       ansible.builtin.yum:
-        name: '{{item}}'
-        state: latest
+        name:
+          - 'automake'
+          - 'epel-release'
+          - 'git'
+          - 'python36'
+          - 'texinfo'
+        state: present
       when: ansible_distribution == 'CentOS'
-      with_items:
-      - 'automake'
-      - 'epel-release'
-      - 'git'
-      - 'python36'
-      - 'texinfo'
 
     - name: Installing Fedora Dependencies
       ansible.builtin.dnf:
