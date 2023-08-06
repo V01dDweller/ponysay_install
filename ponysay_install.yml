@@ -49,4 +49,4 @@
         creates: '/bin/ponysay'
       when: ponysay.stat.exists == false
 ...
-# vim: ft=ansible:syntax=yaml.ansible:number:nowrap
+# vim: ft=ansible:syntax=yaml.ansible:number:nowrap:relativenumber
