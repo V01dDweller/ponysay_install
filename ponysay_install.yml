@@ -6,7 +6,7 @@
   become: true
   tasks:
     - name: Install CentOS dependencies
-      yum:
+      ansible.builtin.yum:
         name: '{{item}}'
         state: latest
       when: ansible_distribution == 'CentOS'
@@ -18,7 +18,7 @@
       - 'texinfo'
 
     - name: Install Fedora Dependencies
-      dnf:
+      ansible.builtin.dnf:
         name: '{{item}}'
         state: latest
       when: ansible_distribution == 'Fedora'
@@ -28,7 +28,7 @@
       - 'texinfo'
 
     - name: Check for current ponysay
-      stat:
+      ansible.builtin.stat:
         path: '/bin/ponysay'
       register: ponysay
 
@@ -37,13 +37,13 @@
         var: ponysay.stat.exists
  
     - name: Check out ponysay from Github
-      git:
+      ansible.builtin.git:
         repo: https://github.com/erkin/ponysay.git
         dest: '/tmp/ponysay'
       when: ponysay.stat.exists == false
 
     - name: Run the ponysay install script
-      command: '/tmp/ponysay/setup.py --freedom=partial install'
+      ansible.builtin.command: '/tmp/ponysay/setup.py --freedom=partial install'
       args:
         chdir: '/tmp/ponysay'
         creates: '/bin/ponysay'
