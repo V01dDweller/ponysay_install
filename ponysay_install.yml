@@ -18,8 +18,11 @@
 
     - name: Installing Fedora Dependencies
       ansible.builtin.dnf:
-        name: '{{item}}'
-        state: latest
+        name:
+          - 'automake'
+          - 'git'
+          - 'texinfo'
+        state: present
       when: ansible_distribution == 'Fedora'
       with_items:
       - 'automake'
