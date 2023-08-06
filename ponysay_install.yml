@@ -36,17 +36,23 @@
       debug:
         var: ponysay.stat.exists
  
-    - name: Check out ponysay from Github
-      ansible.builtin.git:
-        repo: https://github.com/erkin/ponysay.git
-        dest: '/tmp/ponysay'
-      when: ponysay.stat.exists == false
 
-    - name: Run the ponysay install script
-      ansible.builtin.command: '/tmp/ponysay/setup.py --freedom=partial install'
-      args:
-        chdir: '/tmp/ponysay'
-        creates: '/bin/ponysay'
-      when: ponysay.stat.exists == false
+    - name: Cloning ponysay repo and run install script
+      when: not ponysay.stat.exists
+      block:
+        - name: Checking out repo from Github
+          ansible.builtin.git:
+            repo: https://github.com/erkin/ponysay.git
+            dest: /tmp/ponysay
+            version: master
+
+        - name: Running the ponysay install script
+          ansible.builtin.shell: |
+            set -o pipefail
+            /tmp/ponysay/setup.py --freedom=partial install
+          args:
+            chdir: /tmp/ponysay
+            executable: /bin/bash
+            creates: /bin/ponysay
 ...
 # vim: ft=ansible:syntax=yaml.ansible:number:nowrap:relativenumber
