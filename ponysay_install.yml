@@ -28,6 +28,11 @@
       - 'texinfo'
 
     - name: Installing Ubuntu dependencies
+      ansible.builtin.apt:
+        name: texinfo
+        state: present
+      when: ansible_distribution == 'Ubuntu'
+
     - name: Checking for current ponysay
       ansible.builtin.stat:
         path: '/bin/ponysay'
