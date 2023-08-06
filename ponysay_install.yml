@@ -5,46 +5,48 @@
   gather_facts: yes
   become: true
   tasks:
-  - name: Install CentOS dependencies
-    yum:
-      name: '{{item}}'
-      state: latest
-    when: ansible_distribution == 'CentOS'
-    with_items:
-    - 'automake'
-    - 'epel-release'
-    - 'git'
-    - 'python36'
-    - 'texinfo'
+    - name: Install CentOS dependencies
+      yum:
+        name: '{{item}}'
+        state: latest
+      when: ansible_distribution == 'CentOS'
+      with_items:
+      - 'automake'
+      - 'epel-release'
+      - 'git'
+      - 'python36'
+      - 'texinfo'
 
-  - name: Install Fedora Dependencies
-    dnf:
-      name: '{{item}}'
-      state: latest
-    when: ansible_distribution == 'Fedora'
-    with_items:
-    - 'automake'
-    - 'git'
-    - 'texinfo'
+    - name: Install Fedora Dependencies
+      dnf:
+        name: '{{item}}'
+        state: latest
+      when: ansible_distribution == 'Fedora'
+      with_items:
+      - 'automake'
+      - 'git'
+      - 'texinfo'
 
-  - name: Check for current ponysay
-    stat:
-      path: '/bin/ponysay'
-    register: ponysay
+    - name: Check for current ponysay
+      stat:
+        path: '/bin/ponysay'
+      register: ponysay
 
-  - name: See if its there
-    debug:
-      var: ponysay.stat.exists
+    - name: See if its there
+      debug:
+        var: ponysay.stat.exists
  
-  - name: Check out ponysay from Github
-    git:
-      repo: https://github.com/erkin/ponysay.git
-      dest: '/tmp/ponysay'
-    when: ponysay.stat.exists == false
+    - name: Check out ponysay from Github
+      git:
+        repo: https://github.com/erkin/ponysay.git
+        dest: '/tmp/ponysay'
+      when: ponysay.stat.exists == false
 
-  - name: Run the ponysay install script
-    command: '/tmp/ponysay/setup.py --freedom=partial install'
-    args:
-      chdir: '/tmp/ponysay'
-      creates: '/bin/ponysay'
-    when: ponysay.stat.exists == false
+    - name: Run the ponysay install script
+      command: '/tmp/ponysay/setup.py --freedom=partial install'
+      args:
+        chdir: '/tmp/ponysay'
+        creates: '/bin/ponysay'
+      when: ponysay.stat.exists == false
+...
+# vim: ft=ansible:syntax=yaml.ansible:number:nowrap
