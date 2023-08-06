@@ -33,7 +33,7 @@
         path: '/bin/ponysay'
       register: ponysay
 
-      debug:
+      ansible.builtin.debug:
         var: ponysay.stat.exists
  
 
