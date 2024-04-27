@@ -8,20 +8,20 @@
     - name: Installing CentOS dependencies
       ansible.builtin.yum:
         name:
-          - 'automake'
-          - 'epel-release'
-          - 'git'
-          - 'python36'
-          - 'texinfo'
+          - automake
+          - epel-release
+          - git
+          - python36
+          - texinfo
         state: present
       when: ansible_distribution == 'CentOS'
 
     - name: Installing Fedora Dependencies
       ansible.builtin.dnf:
         name:
-          - 'automake'
-          - 'git'
-          - 'texinfo'
+          - automake
+          - git
+          - texinfo
         state: present
       when: ansible_distribution == 'Fedora'
 
@@ -33,7 +33,7 @@
 
     - name: Checking for current ponysay
       ansible.builtin.stat:
-        path: '/bin/ponysay'
+        path: /bin/ponysay
       register: ponysay
 
     - name: Advising if ponysay was found
